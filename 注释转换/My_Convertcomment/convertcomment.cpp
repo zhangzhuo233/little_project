@@ -1,7 +1,7 @@
 #include"utili.h"
 
 extern "C" int ConvertComment(FILE *inputfile, FILE *outputfile);
-//½«´Ëº¯ÊıÒÔC½øĞĞ±àÒë£¬main.cppºÍconvertcomment.cppÇ¿ÖÆ±àÒëÆ÷²»ÒªĞŞ¸ÄÄãµÄº¯ÊıÃû£¬µ÷ÓÃµÄÊÇÍ¬Ò»¸öº¯Êı
+//å°†æ­¤å‡½æ•°ä»¥Cè¿›è¡Œç¼–è¯‘ï¼Œmain.cppå’Œconvertcomment.cppå¼ºåˆ¶ç¼–è¯‘å™¨ä¸è¦ä¿®æ”¹ä½ çš„å‡½æ•°åï¼Œè°ƒç”¨çš„æ˜¯åŒä¸€ä¸ªå‡½æ•°
 typedef enum
 {
     NO_COMMENT_STATE,
@@ -16,21 +16,20 @@ typedef struct
     FILE *inputfile;
     FILE *outputfile;
     STATE_ENUM state;
-    STATE_ENUM prestate;        //¼ÇÂ¼ÏÈÇ°µÄ×´Ì¬,½øÈë×Ö·û´®Ç°½øĞĞ¼ÇÂ¼
+    STATE_ENUM prestate;        //è®°å½•å…ˆå‰çš„çŠ¶æ€,è¿›å…¥å­—ç¬¦ä¸²å‰è¿›è¡Œè®°å½•
 }State_Machine;
 
 ///////////////////////////////////////////////////////////
 State_Machine  g_state;
 
-void EventPro(char ch);         //ÊÂ¼ş´¦Àí
-void EventProAtNo(char ch);     //ÎŞ×¢ÊÍ×´Ì¬
-void EventProAtC(char ch);      //CÓïÑÔ×´Ì¬
-void EventProAtCpp(char ch);    //Cpp×´Ì¬
-void EventProAtCpp(char ch);    //Cpp×´Ì¬
-void EventProAtStr(char ch);    //×Ö·û´®×´Ì¬
-char readchr();                 //¶ÁÈ¡Ò»¸ö×Ö·û´®
-void Write_One_Data(char ch);        //ÓÃÀ´Ğ´ÈëÒ»¸ö×Ö·û
-void Write_Data(char ch1, char ch2);//Ğ´ÈëÁ½¸ö×Ö·ûº¯Êı
+void EventPro(char ch);         //äº‹ä»¶å¤„ç†
+void EventProAtNo(char ch);     //æ— æ³¨é‡ŠçŠ¶æ€
+void EventProAtC(char ch);      //Cè¯­è¨€çŠ¶æ€
+void EventProAtCpp(char ch);    //CppçŠ¶æ€
+void EventProAtStr(char ch);    //å­—ç¬¦ä¸²çŠ¶æ€
+char readchr();                 //è¯»å–ä¸€ä¸ªå­—ç¬¦ä¸²
+void Write_One_Data(char ch);        //ç”¨æ¥å†™å…¥ä¸€ä¸ªå­—ç¬¦
+void Write_Data(char ch1, char ch2);//å†™å…¥ä¸¤ä¸ªå­—ç¬¦å‡½æ•°
 
 ///////////////////////////////////////////////////////////
 int ConvertComment(FILE *inputfile, FILE *outputfile)
@@ -137,7 +136,7 @@ void EventProAtC(char ch)
         else if(nextch == '*')
         {
             Write_One_Data(ch);
-            fseek(g_state.inputfile, -1L, SEEK_CUR);//ÆæÊı¸ö*£¬×îºóÒ»¸öÉèÖÃ³ÉÓë/Æ¥ÅäµÄÇé¿ö,eg./***/
+            fseek(g_state.inputfile, -1L, SEEK_CUR);//å¥‡æ•°ä¸ª*ï¼Œæœ€åä¸€ä¸ªè®¾ç½®æˆä¸/åŒ¹é…çš„æƒ…å†µ,eg./***/
         }
         else
             Write_Data(ch, nextch);
