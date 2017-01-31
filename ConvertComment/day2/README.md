@@ -1,12 +1,13 @@
-Usage: ./convert [-Option] src dest
-Option:
-	-s,--simple		转换单一文件
-	-R, -r --recursive 递归转换目录及其子目录内的所有内容
-	-h  			帮助信息
+#ConvertComment_Test
+**The project has two main option**
+**Usage: ./convert [-Option] src dest**
+**Option:	
+-s,--simple		转换单一文件	
+-R, -r --recursive 递归转换目录及其子目录内的所有内容	
+-h  			帮助信息
 Version:			v1.0
-Author:			zhangzhuo 
-
-几点说明：
+Author:			zhangzhuo **
+#几点说明：
 1.关于换行符
 Windows等操作系统用的文本换行符和UNIX/Linux操作系统用的不同，
 Windows系统下输入的换行符在UNIX/Linux下不会显示为“换行”，
