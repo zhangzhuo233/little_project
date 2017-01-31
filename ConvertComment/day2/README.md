@@ -25,3 +25,7 @@
            sed -i 's/\r//'  filename1 filename2 ...
 -     或
            find conf/  -name "*.*" |xargs sed -i 's/\r//'
+           
+**3.无关的tttttt和bak说明**
+-          tttttt这个目录是我的测试目录
+-          bak是之前的错误代码，其实也不是错的，只是思路不明确，真实的应该是BrowseDir里面的实现思路，不过在bak上也费了不少心思，最后还是迷途知返，写出了正确的代码
