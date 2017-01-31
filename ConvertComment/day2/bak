@@ -1,0 +1,93 @@
+void BeginConvert(char *src, char *des)
+{
+    char src_path[_POSIX_PATH_MAX];    //避免地址交错改变两个目录名
+    char des_path[_POSIX_PATH_MAX];
+    char src_path_tmp[_POSIX_PATH_MAX];
+    memset(src_path, 0, _POSIX_PATH_MAX);
+    memset(des_path, 0, _POSIX_PATH_MAX);
+    char (&src_refer)[_POSIX_PATH_MAX] = src_path;
+    char (&des_refer)[_POSIX_PATH_MAX] = des_path;
+    char (&src_tmprefer)[_POSIX_PATH_MAX] = src_path_tmp;
+
+    struct dirent *dirp;
+    DIR           *dp;
+    int           ret;      //返回状态
+
+    //将相对路径转换成绝对路径
+    if(NULL == realpath(src, src_path_tmp))
+    {
+        perror("realpath src");
+    }
+    if(NULL == realpath(src, src_path))
+    {
+        perror("realpath src");
+    }
+    if(NULL == realpath(des, des_path))
+    {
+        perror("realpath des");
+    }
+
+    //获取文件属性
+    if(lstat(src_path, &statbuf) < 0)
+    {
+        cout<<"lstat error!"<<endl;
+        exit(EXIT_FAILURE);
+    }
+    //若不是目录，即就是普通文件，直接转换
+    if(S_ISDIR(statbuf.st_mode) == 0)
+    {
+        PathCat(des_refer, src_path);       //./t1/tttttt/t1-->./t1/tttttt/t1/input.c
+        OneFileCovert(src_path, des_path);
+    }
+    else
+    {
+        //在des里创建src对应的目录
+        PathCat(des_refer, src_path);   //./t1/tttttt
+        if(NULL == opendir(des_path))
+        {
+             mkdir(des_path, 0755);
+        }
+
+        //打开目录
+        if((dp = opendir(src_path)) == NULL) //can not open directory
+        {
+             cout<<"\""<<src_path<<"\""<<"open error!"<<endl;
+             exit(EXIT_FAILURE);
+        }
+        while((dirp = readdir(dp)) != NULL)
+        {
+             if(strcmp(dirp->d_name, ".") == 0 ||
+                strcmp(dirp->d_name, "..") == 0)
+                 continue;                  //ignore dot and dot-dot
+             //由于readdir()返回其参数目录流的下一个目录进入点，这里需要添加下列代码：
+             //如果dirp->d_name不为NULL，则判断dirp->d_name是不是src_refer的一个子目录
+             //（1）如果是，直接在src_refer后追加dirp->d_name
+             //（2）如果不是src_refer的子目录，而是与src_refer同级的目录，则要在src_refer的上一级目录后追加dirp->d_name
+             if(lstat(dirp->d_name, &statbuf) < 0)
+             {
+                 cout<<"lstat error!"<<endl;
+                 exit(EXIT_FAILURE);
+             }
+             if(S_ISDIR(statbuf.st_mode) != 0)      //如果dirp->d_name是目录
+             {
+                 PathCat(src_refer, dirp->d_name);  //./tttttt/t1
+                 //比较两个目录是否同级
+                 if(PathCmp(src_path, src) == 1)    //./tttttt/t1   ./tttttt
+                 {
+                    PathCat(des_refer, src_path);   //./t1/tttttt/t1
+                    DirConvert(src_path, des_path);   //./tttttt/t1   ./t1/tttttt/t1
+                 }
+                 else //0                           //./tttttt/t1       ./tttttt/t2
+                 {
+                    PathCat(src_tmprefer, dirp->d_name);//./tttttt/  -->  ./tttttt/t2
+                    DirConvert(src_tmprefer, des_path);//./tttttt/t2    ./t1
+                 }
+             }
+             else
+             {
+                 PathCat(src_refer, dirp->d_name);  //./tttttt/t1/input.c
+                 DirConvert(src_path, des_path);  //./tttttt/t1/input.c   ./t1/tttttt/t1
+             }
+        }
+    }
+}
