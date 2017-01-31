@@ -1,12 +1,12 @@
 #ConvertComment_Test</b>
 **The project has two main option**</b>
-*Usage: ./convert [-Option] src dest*
-*Option:	
--s,--simple		转换单一文件	
--R, -r --recursive 递归转换目录及其子目录内的所有内容	
--h  			帮助信息
-Version:			v1.0
-Author:			zhangzhuo **
+Usage: ./convert [-Option] src dest</b>
+Option:	</b>
+      -s,--simple		      转换单一文件
+      </b>-R, -r --recursive  递归转换目录及其子目录内的所有内容	</b>
+      -h  			          帮助信息</b>
+</b>Version:			v1.0</b>
+</b>Author:			zhangzhuo </b>
 #几点说明：
 -1.关于换行符
 -Windows等操作系统用的文本换行符和UNIX/Linux操作系统用的不同，
