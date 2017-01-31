@@ -5,7 +5,8 @@
 -      -s,--simple	   转换单一文件
 -      -R, -r --recursive  递归转换目录及其子目录内的所有内容
 -      -h  			          帮助信息
-
+-      eg1. ./convert -r ./tttttt ./t1
+-      eg2. ./convert -s inputfile outputfile
 ###Version:			v1.0
 
 ###Author:			           zhangzhuo
