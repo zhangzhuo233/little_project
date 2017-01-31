@@ -1,10 +1,10 @@
-#ConvertComment_Test</b>
-#**The project has two main option**
-#Usage: ./convert [-Option] src dest
-#Option:
-#      -s,--simple	   转换单一文件
-#      -R, -r --recursive  递归转换目录及其子目录内的所有内容
-#      -h  			          帮助信息
+#ConvertComment_Test
+**The project has two main option**
+-Usage: ./convert [-Option] src dest
+- Option:
+-      -s,--simple	   转换单一文件
+-      -R, -r --recursive  递归转换目录及其子目录内的所有内容
+-      -h  			          帮助信息
 #Version:			v1.0
 #Author:			zhangzhuo
 #几点说明：
