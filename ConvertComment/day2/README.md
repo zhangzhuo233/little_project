@@ -7,9 +7,10 @@
 -      -h  			          帮助信息
 -      eg1. ./convert -r ./tttttt ./t1
 -      eg2. ./convert -s inputfile outputfile
-###Version:			v1.0
 
-###Author:			           zhangzhuo
+####Version:			v1.0
+
+####Author:			zhangzhuo
 
 #几点说明：
 **1.关于换行符**
