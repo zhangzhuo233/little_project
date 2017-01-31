@@ -1,6 +1,6 @@
 #ConvertComment_Test
-**The project has two main option**
--Usage: ./convert [-Option] src dest
+**The project has two main option:**
+##Usage: ./convert [-Option] src dest
 - Option:
 -      -s,--simple	   转换单一文件
 -      -R, -r --recursive  递归转换目录及其子目录内的所有内容
