@@ -250,12 +250,16 @@ void EventProAtStr(char ch)
             g_state.state = g_state.prestate;
             break;
         case '*':
-            nextch = fgetc(g_state.inputfile);
+            nextch = readchr();
             if(g_state.prestate == CPP_COMMENT_STATE && nextch == '/') // "abc*/"
+                Write_Data('#','#');
+            else if(g_state.prestate == C_COMMENT_STATE && nextch == '/')//  /*"ab*/"
             {
-                fputc('@', g_state.outputfile);
-                fputc('@', g_state.outputfile);
+                Write_Data(ch,nextch);
+                g_state.state = NO_COMMENT_STATE;
             }
+            else
+                Write_Data(ch, nextch);
             break;
         case EOF:
             g_state.state = END_COMMENT_STATE;
@@ -267,7 +271,7 @@ void EventProAtStr(char ch)
 }
 char readchr()
 {
-     ch = fgetc(g_state.inputfile);
+     char ch = fgetc(g_state.inputfile);
      return ch;
 }
 void Write_One_Data(char ch)
