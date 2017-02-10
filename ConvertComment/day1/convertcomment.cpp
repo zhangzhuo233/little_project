@@ -101,13 +101,13 @@ void EventProAtNo(char ch)
         else
             Write_Data(ch, nextch);
         break;
-    case '*':
-        nextch = readchr();
-        if(nextch == '/')
-            Write_Data(' ', ' ');
-        else
-            Write_Data(ch, nextch);
-        break;
+    //case '*':
+      //  nextch = readchr();
+        //if(nextch == '/')
+          //  Write_Data(' ', ' ');
+        //else
+          //  Write_Data(ch, nextch);
+        //break;
     case '\"':
         Write_One_Data(ch);
         g_state.state = STR_COMMENT_STATE;
